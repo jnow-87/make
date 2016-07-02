@@ -156,6 +156,10 @@ githooks:
 	ln -frs $(githooks_tree)/style .git/hooks/style
 	ln -frs $(githooks_tree)/pre-commit .git/hooks/pre-commit
 
+.PHONY: check_coding_style
+check_coding_style:
+	$(QBUILD) ${githooks_tree}/pre-commit $(shell find -type f | grep -v -e './.git/' -e './build/')
+
 all: githooks
 endif
 
