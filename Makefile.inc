@@ -127,6 +127,7 @@ yacc := $(QBUILD)$(YACC)
 gperf := $(QBUILD)$(GPERF)
 gperf_c_header := $(QBUILD)$(scripts_dir)/gperf_c_header.sh
 gperf_cxx_header := $(QBUILD)$(scripts_dir)/gperf_cxx_header.sh
+versionheader := $(QBUILD)$(scripts_dir)/version_header.sh
 
 echo := @echo
 printf := @printf
@@ -144,7 +145,7 @@ sym_link := $(QUTIL)ln -s
 
 # fake target as default target
 .PHONY: all
-all: init_githooks check_user_tools check_build_tools check_config dotclang
+all: init_githooks check_user_tools check_build_tools check_config dotclang versionheader
 
 .PHONY: init_githooks
 .SILENT: init_githooks
@@ -225,6 +226,13 @@ all: configtools check_configheader
 else
   do_basic := y
 endif
+
+# version header
+version_header := $(build_tree)/version.h
+
+.PHONY: versionheader
+versionheader:
+	$(versionheader) $(version_header)
 
 # default config targets
 ifneq ("$(config_tree)","")
