@@ -40,6 +40,10 @@ endef
 # XXX naming: compile_<target type>_<dependencies type>
 # XXX $(call compile_*,<host>)
 
+
+define nop
+endef
+
 define compile_c_y
 	$(call compile_base,yacc,$(yaccflags) -v --report-file=$(basename $@).log --defines=$(basename $@).h $< -o $@)
 endef
