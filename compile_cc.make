@@ -50,12 +50,12 @@ endef
 
 define compile_c_gperf
 	$(call compile_base,gperf,$(gperfflags) $< --output-file=$@)
-	$(gperf_c_header) $< $@ $(basename $@).h
+	$(call cmd_run_script,$(gperf_c_header) $< $@ $(basename $@).h)
 endef
 
 define compile_cxx_gperf
 	$(call compile_base,gperf,$(gperfflags) $< --output-file=$@)
-	$(gperf_cxx_header) $@ $(basename $@).h
+	$(call cmd_run_script,$(gperf_cxx_header) $@ $(basename $@).h)
 endef
 
 # define 'ASM' for preprocessed assembly files
